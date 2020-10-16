@@ -3,19 +3,30 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {alertActions} from './store/reducer';
 function App() {
-  const [state, updateState] = React.useState("");
+  const [fruitState, updateState] = React.useState("");
+  const [personState, updatePersonState] = React.useState("");
   // const alert = useSelector(state => state.message);
   // const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(alertActions.success(state))
-//     console.log(state, alert)
-// }, [state]);
+  //   useEffect(() => {
+  //     dispatch(alertActions.success(state))
+  //     console.log(state, alert)
+  // }, [state]);
 
 const renderUI = () => {
-  if(state == "apple") {
+  if(fruitState == "apple") {
     return <div>Apple</div>
-  }else if(state == "banana") {
+  }else if(fruitState == "banana") {
     return <div>Banana</div>
+  }else {
+    return <div>None</div>
+  }
+}
+
+const renderEmployee = () => {
+  if(personState == "bonnie") {
+    return <div>Bonnie</div>
+  }else if(personState == "fabio") {
+    return <div>Fabio </div>
   }else {
     return <div>None</div>
   }
@@ -23,9 +34,14 @@ const renderUI = () => {
 
 
   return (
-    <div className="App">    
-        <input test-id="name" type="text" value={state} onChange={(event) => updateState(event.target.value)} />  
-        {renderUI()}  
+    <div className="App">  
+        <h1>Fruits</h1>  
+        <input test-id="name" type="text" value={fruitState} onChange={(event) => updateState(event.target.value)} />  
+        {renderUI()} 
+
+        <h1>Employee</h1>  
+        <input test-id="employee" type="text" value={personState} onChange={(event) => updatePersonState(event.target.value)} />  
+        {renderEmployee()}  
     </div>
   );
 }
