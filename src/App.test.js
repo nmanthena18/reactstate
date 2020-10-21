@@ -7,44 +7,34 @@ const mockStore = configureMockStore()({});
 
 import App from './App';
 
+
+
 let wrapper;
-const updateState = jest.fn();
-const updatePersonState = jest.fn();
-beforeEach(() => {
-  React.useState = jest.fn(() => ["", updateState]);
-  // React.useState = jest.fn(() => ["", updatePersonState]);
+const setup = function(initialFruitState) {
+  const updateState = jest.fn();
+  React.useState = jest.fn(() => [initialFruitState, updateState]);
   wrapper = shallow(<Provider store={mockStore}><App /></Provider>).dive().dive();
+  return wrapper
+}
+ 
+describe('test fruit state', () => {
+  test('banana state', () => {
+    const wrapper = setup('banana')
+    const banana = wrapper.find('[test-id="fruite"]').text();
+    expect(banana).toBe('Banana');
+    // some assertion here about what should happen if state is banana
+  });
+  test('apple state', () => {
+    const wrapper = setup('apple')
+    const apple = wrapper.find('[test-id="fruite"]').text();
+    expect(apple).toBe('Apple');
+    // some assertion here about what should happen if state is apple
+  });
+  test('invalid state', () => {
+    const wrapper = setup('strawberry');
+    wrapper.find('[test-id="name"]').simulate('change', {target:{value:"ba"}})
+    const banana = wrapper.find('[test-id="fruite"]').text();
+    expect(banana).toBe('None');
+    // some assertion here about what should happen if state is not one of the expected options
+  });
 });
-describe("App component test for fruits", () => {
-  test('renders learn react link', () => {
-    const input = wrapper.find('[test-id="name"]');
-    const event = {target: {value: 'apple'}};
-    input.simulate('change', event);
-    expect(updateState).toHaveBeenCalledWith("apple")
-  });
-
-  test('renders learn react link', () => {
-    const input = wrapper.find('[test-id="name"]');
-    const event = {target: {value: 'banana'}};
-    input.simulate('change', event);
-    expect(updateState).toHaveBeenCalledWith("banana")
-  });
-
-})
-
-describe("App component test for employee", () => {
-  test('renders learn react link', () => {
-    const input = wrapper.find('[test-id="employee"]');
-    const event = {target: {value: 'bonnie'}};
-    input.simulate('change', event);
-    expect(updateState).toHaveBeenCalledWith("bonnie")
-  });
-
-  test('renders learn react link', () => {
-    const input = wrapper.find('[test-id="employee"]');
-    const event = {target: {value: 'fabio'}};
-    input.simulate('change', event);
-    expect(updateState).toHaveBeenCalledWith("fabio")
-  });
-
-})

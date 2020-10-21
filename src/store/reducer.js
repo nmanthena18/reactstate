@@ -1,43 +1,38 @@
 
-const alertConstants = {
-    SUCCESS: 'ALERT_SUCCESS',
-    ERROR: 'ALERT_ERROR',
-    CLEAR: 'ALERT_CLEAR'
+const actionKeys = {
+    ADD: 'ADD',
+    CLEAR: 'CLEAR'
 };
 
-export const alertActions = {
-    success,
-    error,
+
+export const actionTypes = {
+    add,
     clear
 };
 
-function success(message) {
-    return { type: alertConstants.SUCCESS, message };
-}
-
-function error(message) {
-    return { type: alertConstants.ERROR, message };
+function add(value) {
+    return { type: actionKeys.ADD, value };
 }
 
 function clear() {
-    return { type: alertConstants.CLEAR };
+    return { type: actionKeys.CLEAR };
 }
 
 
 export function rootReducer(state = {name:"naresh"}, action) {
+    console.log(action.type, actionTypes.ADD)
     switch (action.type) {
-        case alertConstants.SUCCESS:
+        case actionKeys.ADD:
+            console.log(action)
             return {
-                type: 'alert-success',
-                message: action.message
+                type: 'add',
+                ...action.value
             };
-        case alertConstants.ERROR:
+        case actionKeys.CLEAR:
             return {
-                type: 'alert-danger',
-                message: action.message
+                type: 'clear',
+                ...action.value
             };
-        case alertConstants.CLEAR:
-            return {};
         default:
             return state
     }
