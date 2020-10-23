@@ -68,8 +68,8 @@ describe('test fruit state', () => {
 
 // nested if statements 
   test("checking for persons and fruite state", () => {
-    renderEmployee("person1", 'apple');
     const wrapper = setup("person1");
+    renderEmployee("person1", 'apple');
     console.log(wrapper.debug())
     const text = wrapper.find('[test-id="person"]').text();
     expect(text).toBe("Person1");

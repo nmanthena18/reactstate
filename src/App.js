@@ -8,6 +8,7 @@ export const renderEmployee = (personState, fruitState) => {
       console.log(personState, fruitState)
       return <div test-id="person">Person1</div> 
     }
+    return <div test-id="person">None Person</div>
   }else if(personState.name == "person2") {
     return <div test-id="person">Person2</div>
   }else {
